@@ -6,10 +6,12 @@ import formImage from "../public/form img.png";
 import { createContext } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+// import { useRouter } from "next/router";
 
 export default function Home() {
   const Context = createContext();
-  console.log(Context);
+  // const router = useRouter();
+  // console.log(Context);
   // Formik is a small library that helps you with the 3 most annoying parts:
   // Getting values in and out of form state
   // Validation and error messages
@@ -34,6 +36,7 @@ export default function Home() {
     // submit form
     onSubmit: (values) => {
       console.log(values);
+      // router.push({ pathname: "/success", query: values });
     },
   });
 
@@ -83,8 +86,16 @@ export default function Home() {
               </div>
               {/* email field for email */}
               <div>
-                <label className="pb-2 block text-sm" htmlFor="name">
-                  Email
+                <label
+                  className={`pb-2 block text-sm ${
+                    formik.touched.name && formik.errors.name
+                      ? "text-red-400"
+                      : ""
+                  }`}
+                >
+                  {formik.touched.email && formik.errors.email
+                    ? formik.errors.email
+                    : "Email"}
                 </label>
                 <input
                   className="border-2 border-gray-500 p-2 rounded-md w-1/2 focus:border-teal-500 focus:ring-teal-500"
@@ -114,8 +125,16 @@ export default function Home() {
               </div>
               {/* terms and conditions in checkbox*/}
               <div>
-                <label className="pb-2 block text-sm" htmlFor="terms">
-                  Terms
+                <label
+                  className={`pb-2 block text-sm ${
+                    formik.touched.terms && formik.errors.terms
+                      ? "text-red-400"
+                      : ""
+                  }`}
+                >
+                  {formik.touched.terms && formik.errors.terms
+                    ? formik.touched.terms
+                    : "Terms and Service"}
                 </label>
                 <div className="flex items-center gap-2">
                   <input
@@ -144,6 +163,7 @@ export default function Home() {
               alt="form-image"
               src={formImage}
               fill
+              priority
               className="object-cover rounded-lg"
             />
           </div>
